@@ -131,6 +131,21 @@ public class PizzaOrder {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        String method="Pick Up";
+        if(delivery){
+            method="Delivery";
+        }
+        
+        return "Your "+method+" Order:"
+                + "<br>Customer: " + name 
+                + "<br>Phone: " + phone 
+                + "<br>Pizza Size: " + pizzaSize 
+                + "<br>Toppings: " + toppings 
+                + "<br>Total: $" + String.format("%.2f",price);
+    }
     
     
     
