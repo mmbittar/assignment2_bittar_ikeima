@@ -132,7 +132,9 @@ public class ProcessOrder extends HttpServlet {
                 }
                 
                 out.println("<tr>");
-                out.println("</tr>");                
+                out.println("<td>Total: </td>");
+                out.println("<td>" + String.format("$%.2f",orders.get(orders.size()-1).getPrice()) + "</td>");
+                out.println("</tr>");                 
                 out.println("</table>");
 
             

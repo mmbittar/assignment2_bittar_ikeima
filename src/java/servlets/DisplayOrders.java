@@ -95,7 +95,7 @@ public class DisplayOrders extends HttpServlet {
                 out.println("<td>" + order.get(i).getPizzaSize() + "</td>");
                 out.println("</tr>");
                 out.println("<tr>");
-                out.println("<td>Toppings: <br><br><br><br><br><br><br><br><br></td>");
+                out.println("<td>Toppings: <br><br><br><br><br><br></td>");
                 out.println("<td>");
                 out.println("<ul>");
                 
@@ -115,6 +115,8 @@ public class DisplayOrders extends HttpServlet {
                 }
                 
                 out.println("<tr>");
+                out.println("<td>Total: </td>");
+                out.println("<td>" + String.format("$%.2f",order.get(i).getPrice()) + "</td>");
                 out.println("</tr>");                
                 out.println("</table>");
                 out.println("<div class=\"button full\">");

@@ -33,12 +33,17 @@ div a {
     float: left;
     display: table;
     text-align: left;
+    padding: 5px;
 }
 
 .row {
     width: 100%;
     display: inline-block;
     overflow: hidden;
+}
+
+#toppings {
+    text-align: left;
 }
 
 input[type=submit] {
@@ -94,4 +99,8 @@ td {
 
 tr:nth-child(even) {
     background-color: #dedede;
+}
+
+li {
+    list-style-type: none;
 }
