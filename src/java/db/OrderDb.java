@@ -7,7 +7,9 @@ package db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Time;
+import java.util.ArrayList;
 import model.PizzaOrder;
 
 /**
@@ -20,6 +22,7 @@ public class OrderDb {
     String database;
     String user;
     String password;
+    String sq;
     
     private final String TABLE_NAME = "orderinfo";
     private final String ID = "id";
@@ -38,8 +41,6 @@ public class OrderDb {
         this.password = password;
     }
     
-    
-    
     public int createOrder (PizzaOrder order) throws Exception{
         String formatSql = "INSERT INTO %s (%s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?)";
         
@@ -56,18 +57,56 @@ public class OrderDb {
                     password);
 
             ps = conn.prepareStatement(sql);
+            
             ps.setString(1, order.getName());
             ps.setString(2, order.getPhone());
             ps.setString(3, order.getPizzaSize());
             ps.setString(4, order.getToppings());
             ps.setBoolean(5, order.isDelivery());
             ps.setDouble(6, order.getPrice());
-           
             result = ps.executeUpdate();
             
         } catch (Exception ex) {
-            return result;
-            //throw(ex);
+            throw(ex);
+        } finally {
+            DBConnector.closeJDBCObjects(conn, ps);
+        }
+        
+        return result;
+    }
+    
+    public ArrayList<PizzaOrder> getOrder() throws Exception{
+        String formatSql = "SELECT * from %s";
+        
+        String sql = String.format(formatSql, TABLE_NAME);
+        
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        ArrayList<PizzaOrder> result = new ArrayList();
+        PizzaOrder order = null;
+        
+        try {
+            conn = DBConnector.getConnection(driver, connUrl, database, user, 
+                    password);
+
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+               order = new PizzaOrder(rs.getInt(ID),
+                        rs.getString(NAME), 
+                        rs.getString(PHONE),
+                        rs.getString(PIZZA_SIZE),
+                        rs.getString(TOPPINGS),
+                        rs.getBoolean(DELIVERY),
+                        rs.getDouble(PRICE));
+               result.add(order);
+            }
+            
+        } catch (Exception ex) {
+            throw(ex);
         } finally {
             DBConnector.closeJDBCObjects(conn, ps);
         }

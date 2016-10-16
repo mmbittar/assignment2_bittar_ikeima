@@ -81,7 +81,7 @@ public class ProcessOrder extends HttpServlet {
             out.println("<body>");
             out.println("<h1>"+order.toString());    
             out.println("</h1>");
-            out.println("<h1>" + result + "</h1>");
+
             //out.println("<h2>You chose:<br>Delivery Method: "+method+"<br>Pizza Size: "+size+"<br> Toppings: "+toppings+"<br>");
             /**
             out.println("<br><br>");

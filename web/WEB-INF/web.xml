@@ -8,7 +8,6 @@
         <servlet-name>BeginOrder</servlet-name>
         <url-pattern>/BeginOrder.do</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>ProcessOrder</servlet-name>
         <servlet-class>servlets.ProcessOrder</servlet-class>
@@ -17,7 +16,14 @@
         <servlet-name>ProcessOrder</servlet-name>
         <url-pattern>/ProcessOrder.do</url-pattern>
     </servlet-mapping>
-    
+    <servlet>
+        <servlet-name>DisplayOrders</servlet-name>
+        <servlet-class>servlets.DisplayOrders</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DisplayOrders</servlet-name>
+        <url-pattern>/DisplayOrders.do</url-pattern>
+    </servlet-mapping>
     <context-param>
         <param-name>driver</param-name>
         <param-value>com.mysql.jdbc.Driver</param-value>
@@ -37,8 +43,8 @@
     <context-param>
         <param-name>password</param-name>
         <param-value>root</param-value>
+        
     </context-param>
-    
     <session-config>
         <session-timeout>
             30
