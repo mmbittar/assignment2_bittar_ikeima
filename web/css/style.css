@@ -1,0 +1,20 @@
+div {
+    box-sizing: border-box;
+}
+
+#pizzaOptions {
+    display: inline-block;
+    float: left;
+    width: 50%;
+}
+#pizzaImage {
+    display: inline-block;
+    width: 50%;
+    position: relative;
+}
+
+.toppingImage {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}

@@ -43,6 +43,7 @@ public class BeginOrder extends HttpServlet {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Place your order</title>");
+            out.println("<link href=\"css/style.css\" rel=\"stylesheet\" type=\"text/css\" />");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Hi "+name+"<br>"+phone);
@@ -50,6 +51,8 @@ public class BeginOrder extends HttpServlet {
           
             out.println("</h1>");
             out.println("<br><br>");
+            out.println("<div>");
+            out.println("<div id=\"pizzaOptions\">");
             out.println("<form action=\"ProcessOrder.do\" method=\"POST\">");
             out.println("<input type=\"radio\" name=\"method\" value=\"false\">Pick Up");
             out.println("<input type=\"radio\" name=\"method\" value=\"true\" checked>Delivery ($2)<br><br>");
@@ -65,9 +68,16 @@ public class BeginOrder extends HttpServlet {
             out.println("<input type=\"checkbox\" name=\"topping\" value=\"Spinach\"/>Baby Spinach<br>");
             out.println("<input type=\"checkbox\" name=\"topping\" value=\"Pepper\"/>Pepper<br><br>");
             out.println("<input type=\"submit\" value=\"Place my Order\"/><br><br>");
-
+            out.println("</form>");
+            out.println("</div>");
+            out.println("<div id=\"pizzaImage\">");
+            out.println("<img src=\"images\\base.png\" />");
+            out.println("<img class=\"toppingImage\" id=\"Pepperoni\" style=\"z-index: 1; display: none;\" src=\"images\\pepperoni.png\" />");
+            out.println("<img class=\"toppingImage\" id=\"Pepper\" style=\"z-index: 2; display: none;\" src=\"images\\pepper.png\" />");
+            out.println("</div>");
+            out.println("</div>");
             out.println("<a href=\"index.html\">Back to index</a>");
-            
+            out.println("<script type=\"text/javascript\" src=\"js/pizzaImages.js\"></script>");
             out.println("</body>");
             out.println("</html>");
         }
