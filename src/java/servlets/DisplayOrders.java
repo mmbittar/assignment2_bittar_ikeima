@@ -9,6 +9,8 @@ import db.OrderDb;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +34,10 @@ public class DisplayOrders extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        response.setContentType("text/html");
+        
+        
         // Search Order in database
         String driver = getServletContext().getInitParameter("driver");
         String connUrl = getServletContext().getInitParameter("connUrl");
@@ -40,6 +46,14 @@ public class DisplayOrders extends HttpServlet {
         String password = getServletContext().getInitParameter("password");
              
         OrderDb orderDb = new OrderDb(driver, connUrl, database, user, password);
+
+        if (request.getParameter("dismiss") != null && !request.getParameter("dismiss").isEmpty()){
+            try {
+                orderDb.removeOrder(Integer.parseInt(request.getParameter("dismiss")));
+            } catch (Exception ex) {
+                System.out.println("Error");
+            }
+        }
         
         ArrayList<PizzaOrder> order = new ArrayList();
         
@@ -60,7 +74,11 @@ public class DisplayOrders extends HttpServlet {
             out.println("<div><h1>Orders</h1></div>");
 
             for (PizzaOrder orderDetail : order){
-                out.println("<h2>" + orderDetail.toString() + "</h2><br>");    
+                out.println("<h2>" + orderDetail.toString() + "</h2>");
+                out.println("<form>");
+                out.println("<input type=\"hidden\" name=\"dismiss\" value="+ orderDetail.getId()+">");
+                out.println("<input type=\"submit\" value=\"Dismiss Order\"/><br><br>");
+                out.println("</form>");
             }
             
             out.println("</body>");

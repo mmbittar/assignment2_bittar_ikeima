@@ -113,4 +113,34 @@ public class OrderDb {
         
         return result;
     }
+    
+    public int removeOrder(int id) throws Exception {   
+        String formatSql = "DELETE FROM %s WHERE %s LIKE ?";
+        
+        String sql = String.format(formatSql, TABLE_NAME, ID);
+        
+        Connection conn = null;        
+        PreparedStatement ps = null;
+        
+        int result = 0;
+        
+        try {
+            conn = DBConnector.getConnection(driver, connUrl, database, user, 
+                    password);
+
+            ps = conn.prepareStatement(sql);
+            
+            ps.setInt(1, id);
+            
+            result = ps.executeUpdate();
+            
+        } catch (Exception ex) {
+            throw(ex);
+        } finally {
+            DBConnector.closeJDBCObjects(conn, ps);
+        }
+            
+        
+        return result;
+    }
 }

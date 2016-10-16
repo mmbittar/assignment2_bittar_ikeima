@@ -43,7 +43,7 @@ public class BeginOrder extends HttpServlet {
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Place your order</title>");
-            out.println("<link href=\"css/style.css\" rel=\"stylesheet\" type=\"text/css\" />");
+            out.println("<link href=\"CSS/style.css\" rel=\"stylesheet\" type=\"text/css\" />");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Hi "+name+"<br>"+phone);
@@ -73,7 +73,8 @@ public class BeginOrder extends HttpServlet {
             out.println("<div id=\"pizzaImage\">");
             out.println("<img src=\"images\\base.png\" />");
             out.println("<img class=\"toppingImage\" id=\"Pepperoni\" style=\"z-index: 1; display: none;\" src=\"images\\pepperoni.png\" />");
-            out.println("<img class=\"toppingImage\" id=\"Pepper\" style=\"z-index: 2; display: none;\" src=\"images\\pepper.png\" />");
+            out.println("<img class=\"toppingImage\" id=\"Sausage\" style=\"z-index: 2; display: none;\" src=\"images\\sausage.png\" />");
+            out.println("<img class=\"toppingImage\" id=\"Pepper\" style=\"z-index: 3; display: none;\" src=\"images\\pepper.png\" />");
             out.println("</div>");
             out.println("</div>");
             out.println("<a href=\"index.html\">Back to index</a>");
