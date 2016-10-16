@@ -1,20 +1,97 @@
-div {
-    box-sizing: border-box;
+#wrapper300 {
+    width: 300px;
+    margin: 0 auto;
 }
 
-#pizzaOptions {
-    display: inline-block;
-    float: left;
-    width: 50%;
+#wrapper1020 {
+    width: 1020px;
+    margin: 0 auto;
 }
-#pizzaImage {
+
+div,
+div a {
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.full {
+    display: inline-block;
+    width: 100%;
+    float: left;
+    display: table;  
+}
+.half {
     display: inline-block;
     width: 50%;
+    float: left;
+    display: table;
+}
+
+.third {
+    display: inline-block;
+    width: 33%;
+    float: left;
+    display: table;
+    text-align: left;
+}
+
+.row {
+    width: 100%;
+    display: inline-block;
+    overflow: hidden;
+}
+
+input[type=submit] {
+    border: none;
+}
+
+.button a,
+input[type=submit] {
+    width: 100%;
+    display: table-cell; 
+    vertical-align: middle;
+    height: 60px;
+    text-decoration: none;
+    font-family: serif;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: black;
+    background-color: #FFFFFF;
+    border: 1px solid #4CAF50;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.button a:hover,
+input[type=submit]:hover{
+    background-color: #4CAF50;
+    color: white;
+}
+
+#pizzaImage {
     position: relative;
 }
 
 .toppingImage {
     position: absolute;
     top: 0px;
-    left: 0px;
+    left: 85px;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dedede;
 }

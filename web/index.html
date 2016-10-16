@@ -9,14 +9,23 @@ and open the template in the editor.
         <title>Pizza order application</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="CSS/style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <div><h1>Welcome to my Pizza order application</h1></div>
-        <form action="BeginOrder.do" method="POST">
-        Name:<input type="text" name="name" required><br><br>
-        Phone:<input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="xxx-xxx-xxxx" required><br><br>
-        <input type="submit" value="submit">
-        </form>
-        <h2><a href="DisplayOrders.do">Display orders</a></h2>
+        <div id="wrapper300">
+            <div><h1>Welcome to my Pizza order application</h1></div>
+                <div>
+                    <form action="BeginOrder.do" method="POST">
+                        Name:<input type="text" name="name" required><br><br>
+                        Phone:<input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="xxx-xxx-xxxx" required><br><br>
+                        <div class="button half">
+                            <input type="submit" value="Submit">
+                        </div>
+                    </form>
+                <div class="button half">
+                    <a href="DisplayOrders.do"><div>Display orders</div></a>
+                </div>
+            </div>
+        </div> <!-- id="wrapper"-->
     </body>
 </html>

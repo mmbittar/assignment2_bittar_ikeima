@@ -24,6 +24,14 @@
         <servlet-name>DisplayOrders</servlet-name>
         <url-pattern>/DisplayOrders.do</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>UpdateOrders</servlet-name>
+        <servlet-class>servlets.UpdateOrders</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateOrders</servlet-name>
+        <url-pattern>/UpdateOrders.do</url-pattern>
+    </servlet-mapping>
     <context-param>
         <param-name>driver</param-name>
         <param-value>com.mysql.jdbc.Driver</param-value>
@@ -43,7 +51,6 @@
     <context-param>
         <param-name>password</param-name>
         <param-value>root</param-value>
-        
     </context-param>
     <session-config>
         <session-timeout>
