@@ -8,6 +8,7 @@ package servlets;
 import db.OrderDb;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -69,39 +70,73 @@ public class ProcessOrder extends HttpServlet {
         } catch (Exception ex){
             System.out.println("Order not saved");
         }
+        ArrayList<PizzaOrder> orders = new ArrayList();
         
+        try {
+            orders = orderDb.getOrder();
+        } catch (Exception ex){
+            System.out.println("No Orders");
+        }
         
         try (PrintWriter out = response.getWriter()) {
            
-            out.println("<!DOCTYPE html>");
+           out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Process Order</title>");
+            out.println("<title>Your Order</title>");
+            out.println("<link href=\"CSS/style.css\" rel=\"stylesheet\" type=\"text/css\" />");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>"+order.toString());    
-            out.println("</h1>");
+            out.println("<div id=\"wrapper1020\">");
+            out.println("<h1>Your order was processed successfully!</h1>");
+            out.println("<div class=\"row\">");
+             // (PizzaOrder orderDetail : order){
+                //out.println("<h2>" + orderDetail.toString() + "</h2>");
+                
+                out.println("<div class=\"third\">");
+                out.println("<table>");
+                out.println("<tr>");
+                out.println("<td>Order number: </td>");
+                out.println("<td>" + orders.get(orders.size()-1).getId() + "</td>");
+                out.println("</tr>");
+                out.println("<tr>");
+                out.println("<td>Customer: </td>");
+                out.println("<td>" + orders.get(orders.size()-1).getName() + "</td>");
+                out.println("</tr>");
+                out.println("<tr>");
+                out.println("<td>Phone: </td>");
+                out.println("<td>" + orders.get(orders.size()-1).getPhone() + "</td>");
+                out.println("</tr>");
+                out.println("<tr>");
+                out.println("<td>Pizza Size: </td>");
+                out.println("<td>" + orders.get(orders.size()-1).getPizzaSize() + "</td>");
+                out.println("</tr>");
+                out.println("<tr>");
+                out.println("<td>Toppings: <br><br><br><br><br><br><br><br><br></td>");
+                out.println("<td>");
+                out.println("<ul>");
+                
+                String topp = orders.get(orders.size()-1).getToppings();
+                               
+                for (String toppSplit: topp.split(",")) {
+                    out.println("<li>" + toppSplit + "</li>");
+                }
+                out.println("</td></ul>");               
+                out.println("</tr>");
+                out.println("<td>Delivery/Pick-up: </td>");
+                
+                if (orders.get(orders.size()-1).isDelivery()){
+                    out.println("<td>Delivery</td>");
+                } else {
+                    out.println("<td>Pick-up</td>");
+                }
+                
+                out.println("<tr>");
+                out.println("</tr>");                
+                out.println("</table>");
 
-            //out.println("<h2>You chose:<br>Delivery Method: "+method+"<br>Pizza Size: "+size+"<br> Toppings: "+toppings+"<br>");
-            /**
-            out.println("<br><br>");
-            out.println("<form action=\"ProcessOrder.do\" method=\"POST\">");
-            out.println("<input type=\"radio\" name=\"method\" value=\"pick\">Pick Up");
-            out.println("<input type=\"radio\" name=\"method\" value=\"delivery\">Delivery ($2)<br><br>");
-            out.println("<h3>Select pizza size:<br>");
-            out.println("<select name=\"size\">");
-            out.println("<option value=\"small\">Small($5)");
-            out.println("<option value=\"medium\">Medium($7)");
-            out.println("<option value=\"large\" selected>Large($9)");
-            out.println("</select><br><br>");
-            out.println("Choose Toppings:</h3>");
-            out.println("<input type=\"checkbox\" name=\"topping\" value=\"pepperoni\"/>Pepperoni<br>");
-            out.println("<input type=\"checkbox\" name=\"topping\" value=\"sausage\"/>Sausage<br>");
-            out.println("<input type=\"checkbox\" name=\"topping\" value=\"spinach\"/>Baby Spinach<br>");
-            out.println("<input type=\"checkbox\" name=\"topping\" value=\"pepper\"/>Pepper<br><br>");
-            out.println("<input type=\"submit\" value=\"Place my Order\"/><br><br>");
-*/
-            out.println("<a href=\"index.html\">Back to index</a>");
+            
+            out.println("<br><a href=\"index.html\">Back to index</a>");
             
             out.println("</body>");
             out.println("</html>");
