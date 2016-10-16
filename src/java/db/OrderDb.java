@@ -21,7 +21,7 @@ public class OrderDb {
     String user;
     String password;
     
-    private final String TABLE_NAME = "pizza_orders";
+    private final String TABLE_NAME = "orderinfo";
     private final String ID = "id";
     private final String NAME = "name";
     private final String PHONE = "phone";
@@ -29,13 +29,23 @@ public class OrderDb {
     private final String TOPPINGS = "toppings";
     private final String DELIVERY = "delivery";
     private final String PRICE = "price";
+
+    public OrderDb(String driver, String connUrl, String database, String user, String password) {
+        this.driver = driver;
+        this.connUrl = connUrl;
+        this.database = database;
+        this.user = user;
+        this.password = password;
+    }
+    
+    
     
     public int createOrder (PizzaOrder order) throws Exception{
-        String formatSql = "INSERT INTO %s (%s, %s, %s, %s, %s, %s) "
-                + "VALUES (?, ?, ?, ?, ?, ?)";
+        String formatSql = "INSERT INTO %s (%s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?)";
         
         String sql = String.format(formatSql, TABLE_NAME, NAME, PHONE, 
                 PIZZA_SIZE, TOPPINGS, DELIVERY, PRICE);
+        
         Connection conn = null;        
         PreparedStatement ps = null;
         
@@ -44,7 +54,7 @@ public class OrderDb {
         try {
             conn = DBConnector.getConnection(driver, connUrl, database, user, 
                     password);
-            
+
             ps = conn.prepareStatement(sql);
             ps.setString(1, order.getName());
             ps.setString(2, order.getPhone());
@@ -52,11 +62,12 @@ public class OrderDb {
             ps.setString(4, order.getToppings());
             ps.setBoolean(5, order.isDelivery());
             ps.setDouble(6, order.getPrice());
-            
+           
             result = ps.executeUpdate();
             
         } catch (Exception ex) {
-            throw(ex);
+            return result;
+            //throw(ex);
         } finally {
             DBConnector.closeJDBCObjects(conn, ps);
         }

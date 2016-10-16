@@ -28,7 +28,7 @@
     </context-param>
     <context-param>
         <param-name>database</param-name>
-        <param-value>book_author</param-value>
+        <param-value>pizza_orders</param-value>
     </context-param>
     <context-param>
         <param-name>user</param-name>

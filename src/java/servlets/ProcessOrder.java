@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import db.OrderDb;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -51,8 +52,25 @@ public class ProcessOrder extends HttpServlet {
         Customer customer = (Customer)session.getAttribute("customer");
          
         PizzaOrder order = new PizzaOrder(customer.getName(),customer.getPhone(),size,toppings,delivery,price);     
-
-
+        
+        // Insert Order to database
+        String driver = getServletContext().getInitParameter("driver");
+        String connUrl = getServletContext().getInitParameter("connUrl");
+        String database = getServletContext().getInitParameter("database");
+        String user = getServletContext().getInitParameter("user");
+        String password = getServletContext().getInitParameter("password");
+             
+        OrderDb orderDb = new OrderDb(driver, connUrl, database, user, password);
+        
+        int result = 0;
+        
+        try {
+            result = orderDb.createOrder(order);
+        } catch (Exception ex){
+            System.out.println("Order not saved");
+        }
+        
+        
         try (PrintWriter out = response.getWriter()) {
            
             out.println("<!DOCTYPE html>");
@@ -63,6 +81,7 @@ public class ProcessOrder extends HttpServlet {
             out.println("<body>");
             out.println("<h1>"+order.toString());    
             out.println("</h1>");
+            out.println("<h1>" + result + "</h1>");
             //out.println("<h2>You chose:<br>Delivery Method: "+method+"<br>Pizza Size: "+size+"<br> Toppings: "+toppings+"<br>");
             /**
             out.println("<br><br>");
