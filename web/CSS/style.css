@@ -1,24 +1,49 @@
-#wrapper300 {
-    width: 300px;
-    margin: 0 auto;
+div {
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* BODY */
+body {
+    background-color: #F2F2F2;
+}
+
+/* HEADER */
+#header {
+    background-color: #FFF;
+    height: 60px;
+    width: 100%;
+    border-bottom: 2px solid black;
+    margin-bottom: 60px;
+    display: table;
+}
+
+
+
+/* DIVS */
+#wrapper500 {
+    width: 500px;
 }
 
 #wrapper1020 {
     width: 1020px;
-    margin: 0 auto;
 }
 
-div,
-div a {
-    box-sizing: border-box;
-    text-align: center;
+#wrapper500, #wrapper1020 {
+    margin: 0 auto;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #FFF;
+    -webkit-box-shadow: rgba(0,0,0,0.3) 0 1px 3px;
+    -moz-box-shadow: rgba(0,0,0,0.3) 0 1px 3px;
+    box-shadow: rgba(0,0,0,0.3) 0 1px 3px;
 }
 
 .full {
     display: inline-block;
     width: 100%;
     float: left;
-    display: table;  
+    display: table;
 }
 .half {
     display: inline-block;
@@ -42,10 +67,7 @@ div a {
     overflow: hidden;
 }
 
-#toppings {
-    text-align: left;
-}
-
+/* BUTTONS */
 input[type=submit] {
     border: none;
 }
@@ -65,6 +87,7 @@ input[type=submit] {
     color: black;
     background-color: #FFFFFF;
     border: 1px solid #4CAF50;
+    outline: none;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
@@ -75,20 +98,58 @@ input[type=submit]:hover{
     color: white;
 }
 
+/* PIZZA TOPPINGS */
+#toppings {
+    text-align: left;
+}
+
+#pizzaOptions {
+    padding: 20px;
+}
 #pizzaImage {
+    padding: 20px;
     position: relative;
+    text-align: center;
 }
 
 .toppingImage {
     position: absolute;
-    top: 0px;
-    left: 85px;
+    top: 20px;
+    left: 75px;
 }
 
+div a {
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* TABLES */
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
+}
+
+/* INPUT */
+input[type=text], input[type=tel] {
+    width: 100%;
+    border-bottom: 1px solid black;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+    background-color: #F2FCF3;
+    font-size: 14px;
+    height: 25px;
+    outline: none;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+input[type=text]:focus,
+input[type=tel]:focus,
+input[type=text]:hover,
+input[type=tel]:hover {
+    border: 1px solid #4CAF50;
 }
 
 td {
@@ -101,6 +162,7 @@ tr:nth-child(even) {
     background-color: #dedede;
 }
 
+/* LIST */
 li {
     list-style-type: none;
 }

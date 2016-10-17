@@ -17,7 +17,7 @@ import model.PizzaOrder;
 
 /**
  *
- * @author Ricardo
+ * @author bittar_ikeima
  */
 public class DisplayOrders extends HttpServlet {
 
@@ -36,7 +36,7 @@ public class DisplayOrders extends HttpServlet {
         response.setContentType("text/html");
         
         
-        // Search Order in database
+        // Get parameters to access Database
         String driver = getServletContext().getInitParameter("driver");
         String connUrl = getServletContext().getInitParameter("connUrl");
         String database = getServletContext().getInitParameter("database");
@@ -44,17 +44,10 @@ public class DisplayOrders extends HttpServlet {
         String password = getServletContext().getInitParameter("password");
              
         OrderDb orderDb = new OrderDb(driver, connUrl, database, user, password);
-
-        if (request.getParameter("dismiss") != null && !request.getParameter("dismiss").isEmpty()){
-            try {
-                orderDb.removeOrder(Integer.parseInt(request.getParameter("dismiss")));
-            } catch (Exception ex) {
-                System.out.println("Error");
-            }
-        }
         
         ArrayList<PizzaOrder> order = new ArrayList();
-        
+
+        // Get orders
         try {
             order = orderDb.getOrder();
         } catch (Exception ex){
@@ -70,11 +63,17 @@ public class DisplayOrders extends HttpServlet {
             out.println("<link href=\"CSS/style.css\" rel=\"stylesheet\" type=\"text/css\" />");
             out.println("</head>");
             out.println("<body>");
+            out.println("<header>");
+            out.println("<div id=\"header\">");
+            out.println("<h1>Assignment 2 - Bittar_Ikeima<h1>");
+            out.println("</div>");
+            out.println("</header>");
             out.println("<div id=\"wrapper1020\">");
-            out.println("<h1>Orders</h1>");
+            out.println("<h2>Orders</h2>");
             out.println("<div class=\"row\">");
-            for (int i = 0; i < order.size(); i++){ // (PizzaOrder orderDetail : order){
-                //out.println("<h2>" + orderDetail.toString() + "</h2>");
+            
+            // Create table for each order
+            for (int i = 0; i < order.size(); i++) {
                 
                 out.println("<div class=\"third\">");
                 out.println("<table>");
@@ -99,15 +98,18 @@ public class DisplayOrders extends HttpServlet {
                 out.println("<td>");
                 out.println("<ul>");
                 
+                // List toppings
                 String toppings = order.get(i).getToppings();
                                
                 for (String toppingSplit: toppings.split(",")) {
                     out.println("<li>" + toppingSplit + "</li>");
                 }
+                
                 out.println("</td></ul>");               
                 out.println("</tr>");
                 out.println("<td>Delivery/Pick-up: </td>");
                 
+                // Get Delivery / Pick-up option
                 if (order.get(i).isDelivery()){
                     out.println("<td>Delivery</td>");
                 } else {
@@ -124,6 +126,7 @@ public class DisplayOrders extends HttpServlet {
                 out.println("</div>");
                 out.println("</div>");
                 
+                // Create another row. Max number of tables in a row is 3
                 if ((i + 1) % 3 == 0){
                     out.println("</div> <!-- class=\"row\"-->");
                     out.println("<div class=\"row\"> <!-- class=\"row\"-->");
@@ -134,20 +137,6 @@ public class DisplayOrders extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         }
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
     }
 
     /**

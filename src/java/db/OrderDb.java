@@ -8,7 +8,6 @@ package db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Time;
 import java.util.ArrayList;
 import model.PizzaOrder;
 
@@ -33,7 +32,17 @@ public class OrderDb {
     private final String DELIVERY = "delivery";
     private final String PRICE = "price";
 
-    public OrderDb(String driver, String connUrl, String database, String user, String password) {
+    /**
+     * Create OrderDb
+     * 
+     * @param driver Driver
+     * @param connUrl Connection URL
+     * @param database Database Name
+     * @param user SQL User
+     * @param password SQL Password
+     */
+    public OrderDb(String driver, String connUrl, String database, String user, 
+            String password) {
         this.driver = driver;
         this.connUrl = connUrl;
         this.database = database;
@@ -41,8 +50,16 @@ public class OrderDb {
         this.password = password;
     }
     
+    /**
+     * Create an Order
+     * 
+     * @param order Pizza Order
+     * @return int higher than 0 if successful added to database. 0 otherwise.
+     * @throws Exception
+     */
     public int createOrder (PizzaOrder order) throws Exception{
-        String formatSql = "INSERT INTO %s (%s, %s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?, ?)";
+        String formatSql = "INSERT INTO %s (%s, %s, %s, %s, %s, %s) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
         
         String sql = String.format(formatSql, TABLE_NAME, NAME, PHONE, 
                 PIZZA_SIZE, TOPPINGS, DELIVERY, PRICE);
@@ -75,6 +92,12 @@ public class OrderDb {
         return result;
     }
     
+    /**
+     * Get All orders from Database
+     * 
+     * @return ArrayList of all PizzaOders
+     * @throws Exception
+     */
     public ArrayList<PizzaOrder> getOrder() throws Exception{
         String formatSql = "SELECT * from %s";
         
@@ -114,6 +137,13 @@ public class OrderDb {
         return result;
     }
     
+    /**
+     * Remove an order from database
+     * 
+     * @param id Order ID
+     * @return int higher than 0 if successful added to database. 0 otherwise.
+     * @throws Exception
+     */
     public int removeOrder(int id) throws Exception {   
         String formatSql = "DELETE FROM %s WHERE %s LIKE ?";
         
@@ -139,7 +169,6 @@ public class OrderDb {
         } finally {
             DBConnector.closeJDBCObjects(conn, ps);
         }
-            
         
         return result;
     }

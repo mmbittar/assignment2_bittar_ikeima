@@ -54,7 +54,7 @@ public class ProcessOrder extends HttpServlet {
          
         PizzaOrder order = new PizzaOrder(customer.getName(),customer.getPhone(),size,toppings,delivery,price);     
         
-        // Insert Order to database
+        // Get parameters to access Database
         String driver = getServletContext().getInitParameter("driver");
         String connUrl = getServletContext().getInitParameter("connUrl");
         String database = getServletContext().getInitParameter("database");
@@ -70,6 +70,7 @@ public class ProcessOrder extends HttpServlet {
         } catch (Exception ex){
             System.out.println("Order not saved");
         }
+        
         ArrayList<PizzaOrder> orders = new ArrayList();
         
         try {
@@ -80,62 +81,67 @@ public class ProcessOrder extends HttpServlet {
         
         try (PrintWriter out = response.getWriter()) {
            
-           out.println("<!DOCTYPE html>");
+            out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Your Order</title>");
             out.println("<link href=\"CSS/style.css\" rel=\"stylesheet\" type=\"text/css\" />");
             out.println("</head>");
             out.println("<body>");
+            out.println("<header>");
+            out.println("<div id=\"header\">");
+            out.println("<h1>Assignment 2 - Bittar_Ikeima<h1>");
+            out.println("</div>");
+            out.println("</header>");
             out.println("<div id=\"wrapper1020\">");
-            out.println("<h1>Your order was processed successfully!</h1>");
+            out.println("<h2>Your order was processed successfully!</h2>");
             out.println("<div class=\"row\">");
              // (PizzaOrder orderDetail : order){
                 //out.println("<h2>" + orderDetail.toString() + "</h2>");
                 
-                out.println("<div class=\"third\">");
-                out.println("<table>");
-                out.println("<tr>");
-                out.println("<td>Order number: </td>");
-                out.println("<td>" + orders.get(orders.size()-1).getId() + "</td>");
-                out.println("</tr>");
-                out.println("<tr>");
-                out.println("<td>Customer: </td>");
-                out.println("<td>" + orders.get(orders.size()-1).getName() + "</td>");
-                out.println("</tr>");
-                out.println("<tr>");
-                out.println("<td>Phone: </td>");
-                out.println("<td>" + orders.get(orders.size()-1).getPhone() + "</td>");
-                out.println("</tr>");
-                out.println("<tr>");
-                out.println("<td>Pizza Size: </td>");
-                out.println("<td>" + orders.get(orders.size()-1).getPizzaSize() + "</td>");
-                out.println("</tr>");
-                out.println("<tr>");
-                out.println("<td>Toppings: <br><br><br><br><br><br><br><br><br></td>");
-                out.println("<td>");
-                out.println("<ul>");
-                
-                String topp = orders.get(orders.size()-1).getToppings();
-                               
-                for (String toppSplit: topp.split(",")) {
-                    out.println("<li>" + toppSplit + "</li>");
-                }
-                out.println("</td></ul>");               
-                out.println("</tr>");
-                out.println("<td>Delivery/Pick-up: </td>");
-                
-                if (orders.get(orders.size()-1).isDelivery()){
-                    out.println("<td>Delivery</td>");
-                } else {
-                    out.println("<td>Pick-up</td>");
-                }
-                
-                out.println("<tr>");
-                out.println("<td>Total: </td>");
-                out.println("<td>" + String.format("$%.2f",orders.get(orders.size()-1).getPrice()) + "</td>");
-                out.println("</tr>");                 
-                out.println("</table>");
+            out.println("<div class=\"third\">");
+            out.println("<table>");
+            out.println("<tr>");
+            out.println("<td>Order number: </td>");
+            out.println("<td>" + orders.get(orders.size()-1).getId() + "</td>");
+            out.println("</tr>");
+            out.println("<tr>");
+            out.println("<td>Customer: </td>");
+            out.println("<td>" + orders.get(orders.size()-1).getName() + "</td>");
+            out.println("</tr>");
+            out.println("<tr>");
+            out.println("<td>Phone: </td>");
+            out.println("<td>" + orders.get(orders.size()-1).getPhone() + "</td>");
+            out.println("</tr>");
+            out.println("<tr>");
+            out.println("<td>Pizza Size: </td>");
+            out.println("<td>" + orders.get(orders.size()-1).getPizzaSize() + "</td>");
+            out.println("</tr>");
+            out.println("<tr>");
+            out.println("<td>Toppings: <br><br><br><br><br><br><br><br><br></td>");
+            out.println("<td>");
+            out.println("<ul>");
+
+            String topp = orders.get(orders.size()-1).getToppings();
+
+            for (String toppSplit: topp.split(",")) {
+                out.println("<li>" + toppSplit + "</li>");
+            }
+            out.println("</td></ul>");               
+            out.println("</tr>");
+            out.println("<td>Delivery/Pick-up: </td>");
+
+            if (orders.get(orders.size()-1).isDelivery()){
+                out.println("<td>Delivery</td>");
+            } else {
+                out.println("<td>Pick-up</td>");
+            }
+
+            out.println("<tr>");
+            out.println("<td>Total: </td>");
+            out.println("<td>" + String.format("$%.2f",orders.get(orders.size()-1).getPrice()) + "</td>");
+            out.println("</tr>");                 
+            out.println("</table>");
 
             
             out.println("<br><a href=\"index.html\">Back to index</a>");

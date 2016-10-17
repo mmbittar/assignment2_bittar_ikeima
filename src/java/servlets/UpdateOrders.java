@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Ricardo
+ * @author bittar_ikeima
  */
 public class UpdateOrders extends HttpServlet {
 
@@ -33,7 +33,7 @@ public class UpdateOrders extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html");
         
-        // Search Order in database
+        // Get parameters to access Database
         String driver = getServletContext().getInitParameter("driver");
         String connUrl = getServletContext().getInitParameter("connUrl");
         String database = getServletContext().getInitParameter("database");
@@ -41,13 +41,15 @@ public class UpdateOrders extends HttpServlet {
         String password = getServletContext().getInitParameter("password");
              
         OrderDb orderDb = new OrderDb(driver, connUrl, database, user, password);
-                 
+
+        // Remove order from database
         try {
             orderDb.removeOrder(Integer.parseInt(request.getParameter("dismiss")));
         } catch (Exception ex) {
             System.out.println("Error");
         }
         
+        // Return to Display Orders
         RequestDispatcher rd = request.getRequestDispatcher("DisplayOrders.do");
         rd.forward(request, response);
             
