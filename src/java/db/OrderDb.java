@@ -131,7 +131,7 @@ public class OrderDb {
         } catch (Exception ex) {
             throw(ex);
         } finally {
-            DBConnector.closeJDBCObjects(conn, ps);
+            DBConnector.closeJDBCObjects(conn, ps, rs);
         }
         
         return result;

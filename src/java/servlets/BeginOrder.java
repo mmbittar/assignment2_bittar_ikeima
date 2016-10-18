@@ -26,18 +26,26 @@ public class BeginOrder extends HttpServlet {
             IOException {
 
         response.setContentType("text/html");
-
-        String name = request.getParameter("name");
-        String phone = request.getParameter("phone");
-
+        
         // Create Session
         HttpSession session = request.getSession();
+        Customer customer = null;
+        String name = null;
+        String phone = null;
+        
+        // Get customer name from request if not null. Get customer name from
+        // session otherwise (Used to place another order
+        if (request.getParameter("name") != null) {
+            name = request.getParameter("name");
+            phone = request.getParameter("phone");
 
-        Customer customer = new Customer(name,phone);
-         
-        session.setAttribute("customer", customer);
-
-
+            customer = new Customer(name,phone);
+            session.setAttribute("customer", customer);
+        } else {
+            name = ((Customer) session.getAttribute("customer")).getName();
+            phone = ((Customer) session.getAttribute("customer")).getPhone();
+        }
+        
         try (PrintWriter out = response.getWriter()) {         
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -65,13 +73,13 @@ public class BeginOrder extends HttpServlet {
             out.println("<option value=\"Small\">Small ($5)");
             out.println("<option value=\"Medium\">Medium ($7)");
             out.println("<option value=\"Large\" selected>Large ($9)");
-            out.println("</select><br><br>");
+            out.println("</select><br><br><br>");
             out.println("Choose Toppings:</h3>");
             out.println("<div id=\"toppings\" class=\"full\">");
             out.println("<input type=\"checkbox\" name=\"topping\" value=\"Pepperoni\"/>Pepperoni<br>");
             out.println("<input type=\"checkbox\" name=\"topping\" value=\"Sausage\"/>Sausage<br>");
             out.println("<input type=\"checkbox\" name=\"topping\" value=\"Spinach\"/>Baby Spinach<br>");
-            out.println("<input type=\"checkbox\" name=\"topping\" value=\"Pepper\"/>Pepper<br><br>");
+            out.println("<input type=\"checkbox\" name=\"topping\" value=\"Pepper\"/>Pepper<br><br><br><br>");
             out.println("</div>");
             out.println("<div class=\"button half\">");
             out.println("<input type=\"submit\" value=\"Place my Order\"/><br><br>");
