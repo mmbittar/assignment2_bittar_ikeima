@@ -6,10 +6,12 @@
 package model;
 
 /**
+ * Creates PizzaOrder object to be stored into database
  *
- * @author Marcelo
+ * @author bittar_ikeima
  */
 public class PizzaOrder {
+
     private int id;
     private String name, phone, pizzaSize, toppings;
     private boolean delivery;
@@ -134,19 +136,17 @@ public class PizzaOrder {
 
     @Override
     public String toString() {
-        String method="Pick Up";
-        if(delivery){
-            method="Delivery";
+        String method = "Pick Up";
+        if (delivery) {
+            method = "Delivery";
         }
-        
-        return "Your "+method+" Order:"
-                + "<br>Customer: " + name 
-                + "<br>Phone: " + phone 
-                + "<br>Pizza Size: " + pizzaSize 
-                + "<br>Toppings: " + toppings 
-                + "<br>Total: $" + String.format("%.2f",price);
+
+        return "Your " + method + " Order:"
+                + "<br>Customer: " + name
+                + "<br>Phone: " + phone
+                + "<br>Pizza Size: " + pizzaSize
+                + "<br>Toppings: " + toppings
+                + "<br>Total: $" + String.format("%.2f", price);
     }
-    
-    
-    
+
 }

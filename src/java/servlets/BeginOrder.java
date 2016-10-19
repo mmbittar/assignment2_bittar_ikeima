@@ -20,33 +20,33 @@ import model.Customer;
  */
 public class BeginOrder extends HttpServlet {
 
- @Override
+    @Override
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException,
             IOException {
 
         response.setContentType("text/html");
-        
+
         // Create Session
         HttpSession session = request.getSession();
         Customer customer = null;
         String name = null;
         String phone = null;
-        
+
         // Get customer name from request if not null. Get customer name from
         // session otherwise (Used to place another order
         if (request.getParameter("name") != null) {
             name = request.getParameter("name");
             phone = request.getParameter("phone");
 
-            customer = new Customer(name,phone);
+            customer = new Customer(name, phone);
             session.setAttribute("customer", customer);
         } else {
             name = ((Customer) session.getAttribute("customer")).getName();
             phone = ((Customer) session.getAttribute("customer")).getPhone();
         }
-        
-        try (PrintWriter out = response.getWriter()) {         
+        //Prints HTML page with pizza options for customer to choose
+        try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -60,7 +60,7 @@ public class BeginOrder extends HttpServlet {
             out.println("</div>");
             out.println("</header>");
             out.println("<div id=\"wrapper1020\">");
-            out.println("<h2>Hi "+name+"<br>"+phone);
+            out.println("<h2>Hi " + name + "<br>" + phone);
             out.println("</h2>");
             out.println("<br><br>");
             out.println("<div>");
@@ -84,7 +84,7 @@ public class BeginOrder extends HttpServlet {
             out.println("<div class=\"button half\">");
             out.println("<input type=\"submit\" value=\"Place my Order\"/><br><br>");
             out.println("</div>");
-            out.println("</form>");           
+            out.println("</form>");
             out.println("<div class=\"button half\">");
             out.println("<a href=\"index.html\">Cancel</a>");
             out.println("</div>");
